@@ -1,10 +1,10 @@
 # Automate Facebook Profile Posts
 
-This script makes Facebook posts to my profile when I publish a new WordPress post.  All the existing WordPress plugins I could find all use the official Facebook API which only supports posting to a Facebook page.  I didn't want that.  I wanted my posts to go into my profile/timeline.  This script is a hack that does what I want by using an application user interface testing tool to drive a live browser session on my workstation to make the Facebook post.
+I want WordPress to make a post to my Facebook profile when I publish a new WordPress post. All the WordPress plugins for Facebook use the official Facebook API which only supports posting to a Facebook page. I didn't want that. I want my posts to go into my profile/timeline. I've written a hack that does what I want by using an application user interface testing tool to drive a live browser session on my workstation to make a Facebook profile post whenever I publish a new WordPress post.
 
 Florian Domgjoni pointed the way on [Python In Plain English](https://python.plainenglish.io/automating-facebook-posts-with-python-using-selenium-7a7ffca0f325).  There he described using the [Python Selenium UI test automation tool](https://selenium-python.readthedocs.io/) to automate a browser session to make Facebook posts.  Thanks Florian!
 
-I took Florian's script and turned it into a [Python Flask](https://flask.palletsprojects.com/en/2.2.x/) web service that runs in the background of my user session on my desktop workstation.  I installed a webhooks plugin in my WordPress instance out on the internet that sends a message to that desktop web service each time I publish a new WordPress post.  It then makes a corresponding post to my Facebook profile.
+I took Florian's script and turned it into a [Python Flask](https://flask.palletsprojects.com/en/2.2.x/) web service that runs in the background in my user session on my desktop workstation. I installed a webhooks plugin in my WordPress instance out on the internet that sends a message to that desktop web service each time I publish a new WordPress post. It then makes a corresponding post to my Facebook profile.  Now it does what I want.
 
 Important things to notice:
 * Every time this web service makes a Facebook post it is going to open up a browser window on the desktop and drive the posting process in that session to make the post.  You'll see this happen right in front of you, right after you've clicked the publish button in WordPress.
