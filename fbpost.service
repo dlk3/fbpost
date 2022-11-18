@@ -1,0 +1,10 @@
+[Unit]
+Description=Facebook autoposting service for WordPress
+
+[Service]
+Type=exec
+RemainAfterExit=true
+ExecStart=%h/src/fbpost/run-fbpost.sh
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,8 @@
+fbpost.cfg
+bin
+geckodriver.log
+include
+lib
+lib64
+__pycache__
+pyvenv.cfg

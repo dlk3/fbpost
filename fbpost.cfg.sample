@@ -1,0 +1,9 @@
+{
+	"urlstartswith": "https://daveking.com/blog/",
+	"logfile": "/tmp/fbpost.log",
+	"facebook": {
+		"userid": "",
+		"passwd": ""
+	}
+}
+
