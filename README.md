@@ -80,6 +80,13 @@ Set up port forwarding from whatever externally-facing internet port you want to
 
 Notice the "Send Demo" option on the three-dot menu, it will send a sample webhook request to the target URL to help with testing.
 
+### Testing / Posting Manually
+
+The web service can be invoked by doing something like this (substituting your own permalink, host name and port number):
+<pre> 
+$ curl -X POST --header "Content-Type: application/json" -d '{"post_permalink":"https://whatever"}' hostname:port</code>
+</pre>
+
 ### That's It
 
 Now, when you publish a new WordPress post, the webhook plugin will send a request to the service on your desktop, which will open up the browser and make a Facebook post announcing the new WordPress post to all your followers..

@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+#  Copyright (C) 2022  David King <dave@daveking.com>
+#
+#  This Source Code Form is subject to the terms of the Mozilla Public License,
+#  v. 2.0.  If a copy of the MPL was not distbuted with this file, You can
+#  obtain one at https://mozilla.org/MPL/2.0/.
+
+#  Automate WordPress Facebook profile posting
+
 import logging
 
 #  Read external configuration file
@@ -33,7 +41,7 @@ except:
 	exit(1)
 
 #  Write log output into a file
-logging.basicConfig(filename=cfg['logfile'], encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+logging.basicConfig(filename=cfg['logfile'], encoding='utf-8', level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 #  Do a Facebook post using Selenium browser automation when the default route is called
 @app.route('/', methods=['POST'])
@@ -63,7 +71,7 @@ def fbpost():
 	try:
 		geckodriver_autoinstaller.install() 
 		driver = webdriver.Firefox()
-		wait = WebDriverWait(driver, 10)
+		wait = WebDriverWait(driver, 15)
 	except:
 		logging.exception('Exception while initializing Selenium browser automation session', exc_info=True)
 		return 'Exception while initializing Selenium browser automation session', 500
@@ -92,7 +100,7 @@ def fbpost():
 		wait.until(EC.presence_of_element_located((By.ID, 'uniqid_1')))
 		post_text_area = driver.find_element(By.XPATH, '//*[@id="uniqid_1"]')
 		post_text_area.send_keys(fb_post)
-		wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'sharerAttachmentMedia')))
+		wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'sharerAttachmentCaption')))
 		post_btn = driver.find_element(By.XPATH, '/html/body/div[2]/div[1]/div/div[2]/div/div/div[5]/div[3]/div/div/button')
 		post_btn.click()
 		wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Your post is now published.')]")))
