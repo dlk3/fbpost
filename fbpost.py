@@ -71,17 +71,17 @@ def fbpost():
 		logging.debug(json.dumps(post, indent=4))
 		if not post['post_permalink'].startswith(cfg['urlstartswith']):
 			logging.error('Ignoring request, permalink does not validate: {}'.format(post['post_permalink']))
-			return 'Invalid permalink in request data', 500
+			return 'Invalid permalink in request data\n', 500
 	except:
 		logging.exception('Unable to get post data from HTTP request', exc_info=True)
-		return 'Unable to get post data from HTTP request', 500
+		return 'Unable to get post data from HTTP request\n', 500
 	
 	#  Construct post message
 	try:
 		fb_post = 'New "Whatcha Doin\'?" blog post:\n{}\n'.format(post['post_permalink'])
 	except:
 		logging.exception('Unable to build message for posting', exc_info=True)
-		return 'Unable to build message for posting', 500
+		return 'Unable to build message for posting\n', 500
 
 	#  Initialize Selenium and open browser session
 	try:
@@ -90,7 +90,7 @@ def fbpost():
 		wait = WebDriverWait(driver, 15)
 	except:
 		logging.exception('Exception while initializing Selenium browser automation session', exc_info=True)
-		return 'Exception while initializing Selenium browser automation session', 500
+		return 'Exception while initializing Selenium browser automation session\n', 500
 		
 	#  Log into Facebook
 	try:
@@ -105,7 +105,7 @@ def fbpost():
 	except:
 		logging.exception('There was a problem logging into Facebook', exc_info=True)
 		driver.quit()
-		return 'There was a problem logging into Facebook', 500
+		return 'There was a problem logging into Facebook\n', 500
 
 	#  Make the post
 	try:
@@ -122,11 +122,11 @@ def fbpost():
 		wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Your post is now published.')]")))
 		logging.info('Facebook post published successfully')
 		driver.quit()
-		return 'Facebook post published successfully', 200
+		return 'Facebook post published successfully\n', 200
 	except:
 		logging.exception('There was a problem sending the post text to Facebook', exc_info=True)
 		driver.quit()
-		return 'There was a problem sending the post text to Facebook', 500
+		return 'There was a problem sending the post text to Facebook\n', 500
 
 if __name__ == '__main__':
 	app.run()
