@@ -63,7 +63,7 @@ class HTTPServerWithInheritedSocket(http.server.HTTPServer):
 #  request data passed to it.
 class postHandler(http.server.BaseHTTPRequestHandler):
 	def do_POST(request):
-		logging.info('received a request')
+		logging.info('Request received')
 			
 		try:
 			length = int(request.headers['content-length'])
@@ -108,7 +108,8 @@ class postHandler(http.server.BaseHTTPRequestHandler):
 		except:
 			logging.exception('There was a problem logging into Facebook', exc_info=True)
 			driver.quit()
-			return 'There was a problem logging into Facebook\n', 500
+			request.send_error(500, 'There was a problem logging into Facebook\n')
+			return
 
 		#  Make the post
 		try:
@@ -125,15 +126,15 @@ class postHandler(http.server.BaseHTTPRequestHandler):
 			wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Your post is now published.')]")))
 			logging.info('Facebook post published successfully')
 			driver.quit()
-			return 'Facebook post published successfully\n', 200
+			request.send_response(200)
+			request.end_headers()
+			request.wfile.write(b'Facebook post published successfully\n')
+			return
 		except:
 			logging.exception('There was a problem sending the post text to Facebook', exc_info=True)
 			driver.quit()
-			return 'There was a problem sending the post text to Facebook\n', 500			
-			request.send_response(200)
-			request.end_headers()
-			request.wfile.write(b'Ok\n')
-			return
+			request.send_error(500, 'There was a problem sending the post text to Facebook\n')
+			return	
 
 def processRequest():
 	#  Define the HTTP port listener.  The listenPort will actually be determined
