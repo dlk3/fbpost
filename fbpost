@@ -54,7 +54,7 @@ class HTTPServerWithInheritedSocket(http.server.HTTPServer):
 	def __init__(self, address_info, handler, bind_and_activate=True):
 		# Note that we call HTTPServer with bind_and_activate = False.
 		http.server.HTTPServer.__init__(self, address_info, handler, bind_and_activate=False)
-		#  Bind to the socket passed to use by systemd (see fbpost.socket)
+		#  Bind to the socket passed by systemd (see fbpost.socket)
 		self.socket = socket.fromfd(3, http.server.HTTPServer.address_family, http.server.HTTPServer.socket_type)	
 		if bind_and_activate:
 			self.server_activate()
