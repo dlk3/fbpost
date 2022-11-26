@@ -1,0 +1,20 @@
+#  Configuration settings used by the fbpost Python script that is called by 
+#  the fbpost.service, which is itself invoked by the fbpost.socket service.
+
+#  The display on which Selenium should open the browser session to make the 
+#  Facebook post.
+#  This should have the same value as the DISPLAY environment variable output
+#  when you issue the command "export" in a terminal in your desktop session.
+DISPLAY=":1"
+
+#  The root that your WordPress permalinks have.  Normally this would be the
+#  URL of your blog.
+#  This is a critical security setting as it is used to validate any request
+#  to make a Facebook post that is received by this server.  Given that this
+#  service is usually exposed on an open port on the public internet it's
+#  really important to make sure that it only posts links to your blog.
+URLROOT="https://hostname.com/blog/"
+
+#  Your Facebook login credentials
+FBUSERID=""
+FBPASSWD=""

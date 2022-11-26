@@ -1,5 +1,5 @@
-fbpost2*
-fbpost.cfg
+*.conf
+*.cfg
 bin
 geckodriver.log
 include
