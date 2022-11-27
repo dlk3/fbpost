@@ -35,13 +35,16 @@ $ sudo dnf install python3-selenium
 $ pip install geckodriver-autoinstaller
 </pre>
 
-Open firewall port for the service (use your own personal zone name and port number):
+Set the userid and the port number in the <code>fbpost.socket</code> and <code>fbpost.service</fbpost> files.  The <code>User=</code> option in each of these files should be set to your normal login id.  We want the browser that does the Facebook posting to run as you, not root. The port number set in the <code>fbpost.socket</code> file only needs to be changed if you want to use a local port that's different than the one I picked, 8081.  Note that this is not the port that will be exposed to the internet and to WordPress.  That will be determined by how port forwarding is configured in your internet router.  This is the port the service exposes on your local LAN.
+ 
+Open the local host's firewall to allow traffic on the service's port:
 <pre>
-$ sudo firewall-cmd --zone=zonename --add-port 8081/tcp --permanent
+$ sudo firewall-cmd --add-port 8081/tcp --permanent
 $ sudo firewall-cmd --reload
 </pre>
+(In my case I have to add the <code>--zone=</code> option to the command line to open this port on the correct network card.)
 
-Create the <code>/etc/sysconfig/fbpost.conf</code> file using <code>fbpost.conf.template</code> as a template.  This file must be customized properly for this service to function.
+Create the <code>/etc/sysconfig/fbpost.conf</code> file using <code>fbpost.conf.template</code> as a template.  This file must be customized properly for this service to function.  See the comments in the file for guidance.
 
 Move the systemd files into place, enable and start the systemd socket listener:
 <pre>
