@@ -44,7 +44,7 @@ try:
 	from selenium.webdriver.common.by import By
 	import geckodriver_autoinstaller
 except:
-	logging.exception('There was a problem importing the Python modules for Selenium.  Are they installed? (pip install selenium geckodriver_autoinstaller)', exc_info=True)
+	logging.exception('There was a problem importing the Python modules for Selenium.  Are they installed? (dnf install python3-selenium; pip install geckodriver_autoinstaller)', exc_info=True)
 	exit(1)
 	
 #  Stolen from https://github.com/Spindel/systemd-socketactivation/blob/master/httpd-true

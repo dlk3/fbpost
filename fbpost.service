@@ -1,10 +1,12 @@
 [Unit]
 Description=Facebook autoposting service for WordPress
 Requires=fbpost.socket
+StartLimitInterval=0
 
 [Service]
 User=dlk
 EnvironmentFile=/etc/sysconfig/fbpost.conf
 WorkingDirectory=~
-Restart=on-failure
 ExecStart=/usr/local/bin/fbpost
+RuntimeMaxSec=60
+Restart=on-failure
